@@ -30,41 +30,45 @@
 <a-light type="directional" position="1 2 1" intensity="1.5"></a-light>
 
 
-    <a-entity mindar-image-target="targetIndex: 0">
+    <a-entity mindar-image-target="targetIndex: 0" id="target">
 
-  <!-- PIVOT GLOBAL -->
-  <a-entity id="pivot"
-            position="0 0 0"
-            rotation="-90 0 0">
+  <!-- Parent = rotation lente continue -->
+  <a-entity
+    id="parent"
+    rotation="0 0 0"
+    animation="property: rotation;
+               to: 0 0 360;
+               loop: true;
+               dur: 10000;
+               easing: linear;
+               startEvents: start-rotate">
 
-    <!-- ENTREE + ROTATION -->
-    <a-entity id="canette"
-              gltf-model="#cansModel"
-              scale="0.2 0.2 0.2"
-              position="0 0 0"
-              rotation="0 0 0"
+    <!-- Modèle -->
+    <a-entity
+      id="cans"
+      gltf-model="#cansModel"
+      position="0 -0.8 0"
+      scale="0.9 0.9 0.9"
+      rotation="0 0 0"
 
-              animation__montee="property: position; 
-                                 from: 0 0 0; 
-                                 to: 0 0 0.6; 
-                                 dur: 1200; 
-                                 easing: easeOutBack;"
+      animation__move="property: position;
+                       from: 0 -0.8 0;
+                       to: 0 0 0;
+                       dur: 1200;
+                       easing: easeOutBack;
+                       startEvents: start-animation"
 
-              animation__rotation_entree="property: rotation;
-                                          from: 0 0 0;
-                                          to: 0 0 360;
-                                          dur: 1200;
-                                          easing: easeOutCubic;"
-
-              animation__rotation_continue="property: rotation;
-                                            to: 0 0 720;
-                                            dur: 8000;
-                                            delay: 1200;
-                                            loop: true;
-                                            easing: linear;">
+      animation__spin="property: rotation;
+                       from: 0 0 0;
+                       to: 0 0 360;
+                       dur: 1200;
+                       easing: easeOutCubic;
+                       startEvents: start-animation">
     </a-entity>
 
   </a-entity>
+
+  
 
 </a-entity>
 

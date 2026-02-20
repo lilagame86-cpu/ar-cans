@@ -26,17 +26,32 @@
 
     <a-entity mindar-image-target="targetIndex: 0">
 
-      <!-- Animation de sortie -->
+      <!-- Parent : orientation + rotation lente continue -->
       <a-entity
-        gltf-model="#cansModel"
-        position="0 -0.3 0"
-        scale="0.3 0.3 0.3"
-        animation="property: position;
-                   from: 0 -0.5 0;
-                   to: 0 0 0;
-                   dur: 1000;
-                   easing: easeOutBack"
-      >
+        rotation="90 0 0"
+        animation="property: rotation;
+                   to: 90 360 0;
+                   loop: true;
+                   dur: 8000;
+                   easing: linear">
+
+        <!-- Enfant : sortie + rotation rapide -->
+        <a-entity
+          gltf-model="#cansModel"
+          position="0 -0.6 0"
+          scale="0.3 0.3 0.3"
+          animation__move="property: position;
+                           from: 0 -0.6 0;
+                           to: 0 0 0;
+                           dur: 1200;
+                           easing: easeOutBack"
+          animation__spin="property: rotation;
+                           from: 0 0 0;
+                           to: 0 360 0;
+                           dur: 1200;
+                           easing: easeOutCubic">
+        </a-entity>
+
       </a-entity>
 
     </a-entity>

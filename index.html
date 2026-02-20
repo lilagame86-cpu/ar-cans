@@ -23,38 +23,58 @@
     </a-assets>
 
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+    <!-- Lumière ambiante -->
+<a-light type="ambient" intensity="1.2"></a-light>
 
-    <a-entity mindar-image-target="targetIndex: 0">
+<!-- Lumière directionnelle -->
+<a-light type="directional" position="1 2 1" intensity="1.5"></a-light>
 
-      <!-- Parent : orientation + rotation lente continue -->
-      <a-entity
-       scale="0.4 0.4 0.4"
-             animation="property: rotation;
-                   to: 0 360 0;
-                   loop: true;
-                   dur: 8000;
-                   easing: linear">
 
-        <!-- Enfant : sortie + rotation rapide -->
-        <a-entity
-          gltf-model="#cansModel"
-          position="0 -0.6 0"
-          scale="0.3 0.3 0.3"
-          animation__move="property: position;
-                           from: 0 -0.6 0;
-                           to: 0 0 0;
-                           dur: 1200;
-                           easing: easeOutBack"
-          animation__spin="property: rotation;
-                           from: 0 0 0;
-                           to: 0 360 0;
-                           dur: 1200;
-                           easing: easeOutCubic">
-        </a-entity>
+    <a-entity mindar-image-target="targetIndex: 0" id="target">
 
-      </a-entity>
+  <!-- Parent orientation + rotation lente -->
+  <a-entity
+    id="parent"
+    animation="property: rotation;
+               to: 0 360 0;
+               loop: true;
+               dur: 10000;
+               easing: linear;
+               startEvents: start-rotate">
 
+    <!-- Modèle -->
+    <a-entity
+      id="cans"
+      gltf-model="#cansModel"
+      position="0 -0.6 0"
+      scale="1 1 1"
+      animation__move="property: position;
+                       from: 0 -0.6 0;
+                       to: 0 0 0;
+                       dur: 1200;
+                       easing: easeOutBack;
+                       startEvents: start-animation"
+      animation__spin="property: rotation;
+                       from: 0 0 0;
+                       to: 0 360 0;
+                       dur: 1200;
+                       easing: easeOutCubic;
+                       startEvents: start-animation">
     </a-entity>
+
+  </a-entity>
+
+</a-entity>
+
+<script>
+  const target = document.querySelector("#target");
+
+  target.addEventListener("targetFound", () => {
+    document.querySelector("#cans").emit("start-animation");
+    document.querySelector("#parent").emit("start-rotate");
+  });
+</script>
+
 
   </a-scene>
 </body>

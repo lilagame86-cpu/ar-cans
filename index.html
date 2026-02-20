@@ -30,9 +30,10 @@
 <a-light type="directional" position="1 2 1" intensity="1.5"></a-light>
 
 
-    <a-entity mindar-image-target="targetIndex: 0" id="target">
-
   <!-- Parent = rotation lente continue -->
+  <a-entity mindar-image-target="targetIndex: 0" id="target">
+
+  <!-- Rotation lente continue -->
   <a-entity
     id="parent"
     rotation="0 0 0"
@@ -47,12 +48,12 @@
     <a-entity
       id="cans"
       gltf-model="#cansModel"
-      position="0 -0.8 0"
+      position="0 0 -0.8"
       scale="0.9 0.9 0.9"
       rotation="0 0 0"
 
       animation__move="property: position;
-                       from: 0 -0.8 0;
+                       from: 0 0 -0.8;
                        to: 0 0 0;
                        dur: 1200;
                        easing: easeOutBack;
@@ -68,24 +69,18 @@
 
   </a-entity>
 
-  <!-- Script pour déclencher les animations -->
-  <script>
-    const target = document.querySelector("#target");
-    const cans = document.querySelector("#cans");
-    const parent = document.querySelector("#parent");
-
-    target.addEventListener("targetFound", () => {
-      cans.emit("start-animation");
-      parent.emit("start-rotate");
-    });
-
-    target.addEventListener("targetLost", () => {
-      parent.removeAttribute("animation");
-    });
-  </script>
-
 </a-entity>
 
+
+
+<script>
+  const target = document.querySelector("#target");
+
+  target.addEventListener("targetFound", () => {
+    document.querySelector("#cans").emit("start-animation");
+    document.querySelector("#parent").emit("start-rotate");
+  });
+</script>
 
 
   </a-scene>

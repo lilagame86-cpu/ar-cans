@@ -68,19 +68,24 @@
 
   </a-entity>
 
-  
+  <!-- Script pour déclencher les animations -->
+  <script>
+    const target = document.querySelector("#target");
+    const cans = document.querySelector("#cans");
+    const parent = document.querySelector("#parent");
+
+    target.addEventListener("targetFound", () => {
+      cans.emit("start-animation");
+      parent.emit("start-rotate");
+    });
+
+    target.addEventListener("targetLost", () => {
+      parent.removeAttribute("animation");
+    });
+  </script>
 
 </a-entity>
 
-
-<script>
-  const target = document.querySelector("#target");
-
-  target.addEventListener("targetFound", () => {
-    document.querySelector("#cans").emit("start-animation");
-    document.querySelector("#parent").emit("start-rotate");
-  });
-</script>
 
 
   </a-scene>
